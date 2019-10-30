@@ -2253,7 +2253,7 @@ int MMG3D_cavity_MOctree(MMG5_pMesh mesh ,int iel,int ip,int *list)
     if(tet1->flag!=base)
     {
       tet1->flag=base;
-      iadr = (list[i]-1)*4 + 1;
+      iadr = (list[ipil]-1)*4 + 1;
       adja = &mesh->adja[iadr];
       vois[0]  = adja[0];
       vois[1]  = adja[1];
