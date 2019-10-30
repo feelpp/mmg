@@ -33,6 +33,7 @@
  */
 
 #include "inlined_functions_3d.h"
+double (*MMG5_caltet)(MMG5_pMesh mesh,MMG5_pSol met,MMG5_pTetra pt);
 
 #ifndef PATTERN
 
