@@ -186,6 +186,34 @@ static const unsigned char MMG5_permedge[12][6] = {
   {3,0,4,1,5,2}, {4,3,0,5,2,1}, {1,3,5,0,2,4}, {3,5,1,4,0,2},
   {5,1,3,2,4,0}, {2,5,4,1,0,3}, {4,2,5,0,3,1}, {5,4,2,3,1,0} };
 
+
+#define MMG3D_SIZE_OCTREESONS 8
+
+/* MOctree prototypes */
+int  MMG3D_init_MOctree    ( MMG5_pMesh,MMG5_pMOctree*,int, double length[3],int );
+int  MMG3D_init_MOctree_s  ( MMG5_pMesh mesh, MMG5_MOctree_s* q, int ip, int depth, int8_t split_ls );
+int  MMG3D_split_MOctree_s ( MMG5_pMesh mesh, MMG5_MOctree_s* q, MMG5_pSol sol);
+int  MMG3D_set_splitls_MOctree ( MMG5_pMesh mesh, MMG5_MOctree_s* q, MMG5_pSol sol);
+
+int  MMG3D_free_MOctree    ( MMG5_pMOctree* q, MMG5_pMesh mesh);
+int  MMG3D_free_MOctree_s  ( MMG5_MOctree_s* q, MMG5_pMesh mesh);
+int  MMG3D_merge_MOctree_s ( MMG5_MOctree_s* q, MMG5_pMesh mesh);
+int  MMG3D_convert_grid2tetmesh(MMG5_pMesh mesh, MMG5_pSol sol);
+int  MMG3D_mark_MOctreeCellCorners ( MMG5_pMesh mesh, MMG5_MOctree_s* q,int span,int *np,int *nc );
+int  MMG3D_write_MOctreeCell ( MMG5_pMesh mesh, MMG5_MOctree_s* q,int span, FILE *inm );
+int MMG3D_find_Neighbour_of_Bigger_or_Equal_Size(MMG5_pMesh mesh, MMG5_MOctree_s* q, int dir, MMG5_MOctree_s* Neighbour);
+void  MMG3D_del_UnusedPoints ( MMG5_pMesh mesh);
+int MMG3D_build_bounding_box ( MMG5_pMesh mesh,MMG5_pSol,int*,int*);
+int MMG3D_intetra(MMG5_pMesh mesh,int iel,int ip);
+int MMG3D_cavity_MOctree(MMG5_pMesh mesh ,int iel,int ip,int *list);
+int  MMG3D_add_Boundary ( MMG5_pMesh mesh, MMG5_pSol sol, int depth_max);
+int MMG3D_build_borders(MMG5_pMesh mesh, int* listip, int depth_max);
+int MMG3D_borders_delaunay( MMG5_pMesh mesh, MMG5_MOctree_s* q, int face_border, int depth_max, int *listip, int* i);
+int MMG5_delone_MOctree(MMG5_pMesh mesh,MMG5_pSol sol,int ip,int *list,int ilist);
+int MMG3D_locatePoint( MMG5_pMesh  mesh, MMG5_pPoint ppt );
+
+
+
 /**
  * PROctree cell: cellule for point region octree (to speed-up the research of
  * the closest point to another one).
@@ -212,7 +240,7 @@ typedef struct
 typedef MMG3D_PROctree * MMG3D_pPROctree;
 
 
-/* PROctree */
+/* PROctree prototypes */
 void MMG3D_initPROctree_s( MMG3D_PROctree_s* q);
 int MMG3D_initPROctree(MMG5_pMesh,MMG3D_pPROctree* q, int nv);
 void MMG3D_freePROctree_s(MMG5_pMesh,MMG3D_PROctree_s* q, int nv);
@@ -306,10 +334,11 @@ int  MMG5_setdhd(MMG5_pMesh mesh);
 int  MMG5_singul(MMG5_pMesh mesh);
 int  MMG3D_nmgeom(MMG5_pMesh mesh);
 int  MMG5_paktet(MMG5_pMesh mesh);
+int  MMG5_hashEdgeDelone(MMG5_pMesh mesh,MMG5_Hash *hash,int iel,int i,int *v);
 int  MMG5_hashFace(MMG5_pMesh,MMG5_Hash*,int,int,int,int);
 int  MMG5_hashGetFace(MMG5_Hash*,int,int,int);
 int  MMG3D_hashTria(MMG5_pMesh mesh, MMG5_Hash*);
-int   MMG3D_hashPrism(MMG5_pMesh mesh);
+int  MMG3D_hashPrism(MMG5_pMesh mesh);
 int  MMG5_hashPop(MMG5_Hash *hash,int a,int b);
 int  MMG5_hPop(MMG5_HGeom *hash,int a,int b,int *ref,int16_t *tag);
 int  MMG5_hTag(MMG5_HGeom *hash,int a,int b,int ref,int16_t tag);
@@ -484,6 +513,7 @@ int  MMG5_movtet(MMG5_pMesh mesh,MMG5_pSol met,MMG3D_pPROctree PROctree,
                   int improveVol,int maxit,int testmark);
 int  MMG5_swpmsh(MMG5_pMesh mesh,MMG5_pSol met,MMG3D_pPROctree PROctree, int);
   int  MMG5_swptet(MMG5_pMesh mesh,MMG5_pSol met,double,double,MMG3D_pPROctree, int,int);
+int MMG3D_saveVTKOctree(MMG5_pMesh mesh,MMG5_pSol sol,const char *filename);
 
 /* pointers */
 /* init structures */

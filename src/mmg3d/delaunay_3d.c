@@ -57,7 +57,7 @@ int MMG5_hashEdgeDelone(MMG5_pMesh mesh,MMG5_Hash *hash,int iel,int i,int *v) {
   MMG5_hedge     *ha;
 
   /* compute key */
-  if ( v[0] < v[1] ) {
+  if ( v[0] < v[1] ) { // v[0] = index vertice 0 du tétra, v[1] = index vertice 1 du tétra
     mins = v[0];
     maxs = v[1];
   }
@@ -206,7 +206,7 @@ int MMG5_delone(MMG5_pMesh mesh,MMG5_pSol sol,int ip,int *list,int ilist) {
   /*tetra allocation : we create "size" tetra*/
   ielnum[0] = size;
   for (k=1 ; k<=size ; k++) {
-    ielnum[k] = MMG3D_newElt(mesh);
+    ielnum[k] = MMG3D_newElt(mesh); //newElt renvoie l'indice du dernier tétra créé
 
     if ( !ielnum[k] ) {
       MMG3D_TETRA_REALLOC(mesh,ielnum[k],mesh->gap,
@@ -797,6 +797,7 @@ int MMG5_cavity_iso(MMG5_pMesh mesh,MMG5_pSol sol,int iel,int ip,int *list,int l
       adj >>= 2;
       voy = vois[i] % 4;
       pt  = &mesh->tetra[adj];
+
       /* boundary face */
       if ( pt->flag == base )  continue;
       if ( pt->xt && (mesh->xtetra[pt->xt].ftag[voy] & MG_BDY) ) continue;

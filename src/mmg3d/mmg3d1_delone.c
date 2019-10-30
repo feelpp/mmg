@@ -1290,6 +1290,9 @@ int MMG5_mmg3d1_delone(MMG5_pMesh mesh,MMG5_pSol met,int *permNodGlob) {
 
   if ( !MMG5_anatet(mesh,met,1,0) ) {
     fprintf(stderr,"\n  ## Unable to split mesh. Exiting.\n");
+    if ( PROctree )
+      /*free PROctree*/
+      MMG3D_freePROctree(mesh,&PROctree);
     return 0;
   }
 

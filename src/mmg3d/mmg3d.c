@@ -365,6 +365,13 @@ int main(int argc,char *argv[]) {
   ptr   = MMG5_Get_filenameExt(mesh->namein);
   fmtin = MMG5_Get_format(ptr,MMG5_FMT_MeditASCII);
 
+  if ( mesh->info.grid ) {
+    if ( fmtin != MMG5_FMT_VtkVtk ) {
+      fprintf(stderr,"  ## Error: grid option available only with VTK structured input file\n");
+      MMG5_RETURN_AND_FREE(mesh,met,ls,disp,MMG5_STRONGFAILURE);
+    }
+  }
+
   switch ( fmtin ) {
 
   case ( MMG5_FMT_GmshASCII ): case ( MMG5_FMT_GmshBinary ):
@@ -376,7 +383,12 @@ int main(int argc,char *argv[]) {
     break;
 
   case ( MMG5_FMT_VtkVtk ):
-    ier = MMG3D_loadVtkMesh(mesh,sol,mesh->namein);
+    if ( mesh->info.grid ) {
+      ier = MMG3D_loadVTKGrid(mesh,sol,mesh->namein);
+    }
+    else {
+      ier = MMG3D_loadVtkMesh(mesh,sol,mesh->namein);
+    }
     break;
 
   case ( MMG5_FMT_MeditASCII ): case ( MMG5_FMT_MeditBinary ):
@@ -424,6 +436,11 @@ int main(int argc,char *argv[]) {
       fprintf(stderr,"  ** %s  NOT FOUND.\n",mesh->namein);
       fprintf(stderr,"  ** UNABLE TO OPEN INPUT FILE.\n");
     }
+    MMG5_RETURN_AND_FREE(mesh,met,ls,disp,MMG5_STRONGFAILURE);
+  }
+
+  /* Conversion of grid into tetra mesh if needed */
+  if ( mesh->info.grid && !MMG3D_convert_grid2tetmesh(mesh,sol) ) {
     MMG5_RETURN_AND_FREE(mesh,met,ls,disp,MMG5_STRONGFAILURE);
   }
 
