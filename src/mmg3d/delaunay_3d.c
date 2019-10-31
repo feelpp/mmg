@@ -35,8 +35,6 @@
 #include "inlined_functions_3d.h"
 double (*MMG5_caltet)(MMG5_pMesh mesh,MMG5_pSol met,MMG5_pTetra pt);
 
-#ifndef PATTERN
-
 #define MMG3D_EPSRAD       1.00005
 /* For Various_adpsol_hgrad1_M6Mach_Eps0.001_hmin0.001_hmax2 test case:
    pbs with MMG3D_EPSCON=5e-4 (MMG3D does not insert enough vertex...)
@@ -126,6 +124,7 @@ int MMG5_hashEdgeDelone(MMG5_pMesh mesh,MMG5_Hash *hash,int iel,int i,int *v) {
   return 1;
 }
 
+#ifndef PATTERN
 /**
  * \param mesh pointer toward the mesh structure.
  * \param sol pointer toward the solution structure.
