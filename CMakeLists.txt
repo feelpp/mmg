@@ -30,7 +30,7 @@ endif()
 INCLUDE(CMakeDependentOption)
 INCLUDE(cmake/modules/macros.cmake)
 
-PROJECT (mmg)
+PROJECT (feelpp_mmg)
 
 # Executable path
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
@@ -269,14 +269,14 @@ CMAKE_DEPENDENT_OPTION (
   )
 
 CMAKE_DEPENDENT_OPTION(
-  MMG2D_CI "Enable/Disable continuous integration for mmg2d" ON
+  MMG2D_CI "Enable/Disable continuous integration for mmg2d" OFF
   "BUILD_TESTING;BUILD_MMG2D" OFF)
 
 # add LinearElasticity library?
 SET(ELAS_DIR "" CACHE PATH "Installation directory for Elas")
 INCLUDE(cmake/modules/FindElas.cmake)
 CMAKE_DEPENDENT_OPTION (
-  USE_ELAS "Use the Elas library for lagrangian motion option" ON
+  USE_ELAS "Use the Elas library for lagrangian motion option" OFF
   "BUILD_MMG2D;ELAS_FOUND" OFF)
 
 #------------------------------- mmgs
@@ -295,7 +295,7 @@ CMAKE_DEPENDENT_OPTION (
   )
 
 CMAKE_DEPENDENT_OPTION(
-  MMGS_CI "Enable/Disable continuous integration for mmgs" ON
+  MMGS_CI "Enable/Disable continuous integration for mmgs" OFF
   "BUILD_TESTING;BUILD_MMGS" OFF )
 
 #------------------------------- mmg3d
@@ -313,7 +313,7 @@ CMAKE_DEPENDENT_OPTION (
   "BUILD_MMG3D;LIBMMG3D_INTERNAL" OFF
   )
 CMAKE_DEPENDENT_OPTION(
-  MMG3D_CI "Enable/Disable continuous integration for mmg3d" ON
+  MMG3D_CI "Enable/Disable continuous integration for mmg3d" OFF
   "BUILD_TESTING;BUILD_MMG3D" OFF)
 
 CMAKE_DEPENDENT_OPTION ( PATTERN
@@ -360,7 +360,7 @@ CMAKE_DEPENDENT_OPTION (
   "BUILD_MMG;LIBMMG_INTERNAL" OFF
   )
 CMAKE_DEPENDENT_OPTION(
-  MMG_CI "Enable/Disable continuous integration for mmg" ON
+  MMG_CI "Enable/Disable continuous integration for mmg" OFF
   "BUILD_TESTING;BUILD_MMG" OFF)
 
 
