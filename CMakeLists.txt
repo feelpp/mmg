@@ -394,7 +394,7 @@ IF( USE_SCOTCH )
 ENDIF()
 
 IF ( MmgTargetsExported )
-  set( MMG_CMAKE_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}/cmake/mmg )
+  set( MMG_CMAKE_INSTALL_DIR share/feelpp/feel/cmake/modules )
 
   configure_package_config_file(mmgConfig.cmake.in
     ${PROJECT_BINARY_DIR}/mmgConfig.cmake
