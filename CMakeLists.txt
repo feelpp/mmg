@@ -30,7 +30,7 @@ endif()
 INCLUDE(CMakeDependentOption)
 INCLUDE(cmake/modules/macros.cmake)
 
-PROJECT (mmg)
+PROJECT (feelpp_mmg)
 
 # Executable path
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
