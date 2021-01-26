@@ -447,7 +447,9 @@ IF( SCOTCH_FOUND )
 ENDIF()
 
 IF ( MmgTargetsExported )
-  set( MMG_CMAKE_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}/cmake/mmg )
+  if ( NOT MMG_CMAKE_INSTALL_DIR )
+    set( MMG_CMAKE_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}/cmake/mmg )
+  endif()
 
   configure_package_config_file(cmake/config/mmgConfig.cmake.in
     ${PROJECT_BINARY_DIR}/mmgConfig.cmake
