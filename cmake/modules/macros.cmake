@@ -41,7 +41,7 @@ MACRO ( COPY_HEADER
   # the custom command and thus allow parallel build.
   ADD_CUSTOM_COMMAND (
     OUTPUT  ${out_dir}/${out_file}
-    COMMAND ${CMAKE_COMMAND} -E copy  ${in_dir}/${in_file} ${out_dir}/${out_file}
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different  ${in_dir}/${in_file} ${out_dir}/${out_file}
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     DEPENDS ${file_dependencies} ${in_dir}/${in_file}
     COMMENT "Copying ${in_dir}/${in_file} in ${out_dir}/${out_file}"
